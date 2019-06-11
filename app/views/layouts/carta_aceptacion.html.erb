@@ -23,26 +23,27 @@
 <%else %>
   <br/>
 <%end %>
-<h1 class="center" data-style="#4664A2" style='text-align:center; margin: 0cm; font-size: 12pt; font-family: Arial; color: #4664A2; font-weight: normal; margin-top: 1.7cm; border: 1px solid #ffffff;'>UNIVERSIDAD POLITÉCNICA DE MADRID<br/>ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN</h1>
-<br/><table border='0' width='100%' style='margin: 0cm; border-width: 0pt !important; width: 16cm; font-size: 13pt; display: block; font-family: Arial;'>
-<tr><td> <u>ALUMNO:</u> </td><td><b><%= user.family_name +  " " + user.first_name %></b></td></tr>
-<tr><td> <u>INSTITUCI&oacute;N:</u></td><td><b><%= user.student_application_form.inst_sending_name %></b></td></tr>
-<tr><td> <u>PROGRAMA:</u> </td> <td><b><%= user.student_application_form.programme %></b></td></tr>
-<tr><td> <u>PERIODO DE MOVILIDAD:</u> </td> <td><b><%= user.student_application_form.academic_year %></b></td></tr>
+<h1 class="center" data-style="#4664A2" style='text-align:center; margin: 0cm; font-size: 12pt; font-family: Helvetica; color: #4664A2; font-weight: normal; margin-top: 1.7cm; border: 1px solid #ffffff;'>UNIVERSIDAD POLITÉCNICA DE MADRID<br/>ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN</h1>
+<h2 style="text-align: center"> DOCUMENTO OFICIAL DE ACEPTACIÓN</h2>
+
+<br/><table border='0' width='100%' style='margin: 0cm; border-width: 0pt !important; width: 16cm; font-size: 12pt; display: block; font-family: Arial;'>
+<tr><td> Para: </td><td><b><%= user.family_name +  " " + user.first_name %></b></td></tr>
+<tr><td> Universidad de Origen:</td><td><b><%= user.student_application_form.inst_sending_name %></b></td></tr>
+<tr><td> Programa:</td> <td><b><%= user.student_application_form.programme %></b></td></tr>
+<tr><td> Periodo de estancia:</td> <td><b><%= user.student_application_form.academic_year %></b></td></tr>
 </table><br/>
 <br/>
 <br/>
 <div style='margin: 0cm;'>
-  <h2 style='font-size: 16pt; font-family: Arial;'><u>SUJETO:</u> Carta de aceptaci&oacute;n</h2>
   <br/>
-  <br/>
-  <p style='text-align:right; font-size: 14pt;'><%= PdfHelper::get_time_and_place %></p>
+  <p style='text-align:right; font-size: 12pt;'><%= PdfHelper::get_time_and_place %></p>
   <br/>
   <br/>
   <p>Estimado/a <%= user.first_name %>,</p>
-  <br/><b>Universidad Politécnica de Madrid</b> para cursar asignaturas en el marco del Programa <%= user.student_application_form.programme%> para cursar asignaturas durante el pr&oacute;ximo <%= result%>.</p>
   <br/>
-  <p style='text-align: justify;'>Toda la documentaci&oacute;n actualizada se enviar&aacute; por e-mail una vez aprobada la programaci&oacute;n docente para el pr&oacute;ximo curso acad&eacute;mico 2019-2020.</p>
+  <p style="text-align: justify;">Es para mí un placer comunicarte que has sido admitido/a en la <b>Escuela Técnica Superior de Ingenieros de Telecomunicación</b> de la <b>Universidad Politécnica de Madrid</b> para cursar asignaturas durante el <%= result%> en el marco del Programa <%= user.student_application_form.programme%>.</p>
+  <br/>
+  <p style='text-align: justify;'>Toda la documentación actualizada se enviará por e-mail una vez aprobada la programación docente para el próximo curso académico 2019-2020.</p>
   <br/>
   <br/>
   <br/>
