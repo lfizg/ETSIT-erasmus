@@ -331,7 +331,7 @@ class UserController < ApplicationController
 					# document = Htmltoword::Document.create(str)
 					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 					# send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-					send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					send_data str, :filename => "acceptance_letter.rtf", :type => "application/rtf"
 				else
 					send_data create_carta_acep_pdf(user, params[:logos]), :filename => "acceptance_letter.pdf", :type => "application/pdf"
 				end
