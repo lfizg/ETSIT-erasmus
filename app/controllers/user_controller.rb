@@ -293,7 +293,32 @@ class UserController < ApplicationController
 			end
 		end
 	end
-
+	def generate_acceptance_letter_spa
+		unless current_user.role == 'admin'
+			if current_user.progress_status == "accepted"
+				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
+				send_data create_acceptance_letter_pdf(current_user), :filename => "acceptance_letter.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
+			else
+				raise_forbidden
+			end
+		else
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				if params[:downloadformat] == "docx"
+					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					# document = Htmltoword::Document.create(str)
+					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					# send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					send_data str, :filename => "carta_aceptacion.rtf", :type => "application/rtf"
+				else
+					send_data create_ac_letter_spa_pdf(user, params[:logos]), :filename => "carta_aceptacion.pdf", :type => "application/pdf"
+				end
+			else
+				redirect_to admin_dashboard_path
+			end
+		end
+	end
 	def generate_acceptance_letters
 		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
 		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
