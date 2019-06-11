@@ -326,12 +326,12 @@ class UserController < ApplicationController
 			if User.exists?(params[:user])
 				user = User.find(params[:user])
 				if params[:downloadformat] == "docx"
-					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.rtf\""
 					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
 					# document = Htmltoword::Document.create(str)
 					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 					# send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-					send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					send_data str, :filename => "acceptance_letter.rtf", :type => "application/rtf"
 				else
 					send_data create_carta_acep_pdf(user, params[:logos]), :filename => "acceptance_letter.pdf", :type => "application/pdf"
 				end
