@@ -730,13 +730,46 @@ $(document).on('turbolinks:load', function() {
             }
         });
     });
-
     /**
      * Close Acceptance Letter Modal
      */
     $('#acceptance-letter-dialog-close').click(
         function(e) {
             $('#acceptance-letter-dialog').dialog('close');
+        }
+    );
+
+    /**
+     * Generate Acceptance Letter Spanish
+     */
+    $('#acceptance-letter-dialog-sp-button').click(function(e){
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        var ALDialog = $('#acceptance-letter-dialog-sp').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    ALDialog.dialog('close');
+                });
+            }
+        });
+    });
+
+    /**
+     * Close Acceptance Letter Spanish
+     */
+    $('#acceptance-letter-dialog-close-sp').click(
+        function(e) {
+            $('#acceptance-letter-dialog-sp').dialog('close');
         }
     );
 

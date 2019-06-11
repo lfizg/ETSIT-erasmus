@@ -296,7 +296,7 @@ class UserController < ApplicationController
 	def generate_acceptance_letter_spa
 		unless current_user.role == 'admin'
 			if current_user.progress_status == "accepted"
-				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
+				headers['Content-Disposition'] = "attachment; filename=\"carta_aceptacion.pdf\""
 				send_data create_ac_letter_spa_pdf(current_user), :filename => "carta_aceptacion.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
 			else
 				raise_forbidden
@@ -305,7 +305,7 @@ class UserController < ApplicationController
 			if User.exists?(params[:user])
 				user = User.find(params[:user])
 				if params[:downloadformat] == "docx"
-					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+					headers['Content-Disposition'] = "attachment; filename=\"carta_aceptacion.docx\""
 					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
 					# document = Htmltoword::Document.create(str)
 					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
