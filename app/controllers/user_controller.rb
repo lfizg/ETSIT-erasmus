@@ -297,7 +297,7 @@ class UserController < ApplicationController
 		unless current_user.role == 'admin'
 			if current_user.progress_status == "accepted"
 				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
-				send_data create_acceptance_letter_pdf(current_user), :filename => "acceptance_letter.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
+				send_data create_ac_letter_spa_pdf(current_user), :filename => "carta_aceptacion.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
 			else
 				raise_forbidden
 			end
@@ -337,6 +337,26 @@ class UserController < ApplicationController
 		end
 		compressed_filestream .rewind
 		send_data compressed_filestream .read, filename: ("acceptance_letters.zip")
+	end
+
+	def generate_acceptance_letters_spa
+		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
+		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
+			users.each do |user|
+				if params[:downloadformat] == "docx"
+					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					# document = Htmltoword::Document.create(str)
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".rtf")
+					# stream.write document
+					stream.write str
+				else
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
+					stream.write create_ac_letter_spa_pdf(user, params[:logos])
+				end
+			end
+		end
+		compressed_filestream .rewind
+		send_data compressed_filestream .read, filename: ("cartas_aceptacion.zip")
 	end
 
 	def update_settings
