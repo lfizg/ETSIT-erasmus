@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     get 'generate_pdf/:user', to: "student_application_form#generate_pdf"
     get 'generate_acceptance_letter/:user', to: "user#generate_acceptance_letter"
     get 'generate_acceptance_letters', to: "user#generate_acceptance_letters"
+    get 'generate_carta_acep/:user', to: "user#generate_carta_acep"
+    get 'generate_cartas_acep', to: "user#generate_cartas_acep"
     get 'generate_csv', to: "user#generate_csv"
 
     get 'student_application_form', to: "student_application_form#sap_page"

@@ -6,7 +6,7 @@ require 'zip'
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :generate_cartas_acep, :generate_carta_acep, :delete]
 	include PdfHelper
 
 	### ADMIN
@@ -307,6 +307,53 @@ class UserController < ApplicationController
 				else
 					stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
 					stream.write create_acceptance_letter_pdf(user, params[:logos])
+				end
+			end
+		end
+		compressed_filestream .rewind
+		send_data compressed_filestream .read, filename: ("acceptance_letters.zip")
+	end
+
+	def generate_carta_acep
+		unless current_user.role == 'admin'
+			if current_user.progress_status == "accepted"
+				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
+				send_data create_carta_acep_pdf(current_user), :filename => "acceptance_letter.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
+			else
+				raise_forbidden
+			end
+		else
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				if params[:downloadformat] == "docx"
+					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					# document = Htmltoword::Document.create(str)
+					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					# send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					send_data str, :filename => "acceptance_letter.rtf", :type => "application/rtf"
+				else
+					send_data create_carta_acep_pdf(user, params[:logos]), :filename => "acceptance_letter.pdf", :type => "application/pdf"
+				end
+			else
+				redirect_to admin_dashboard_path
+			end
+		end
+	end
+
+	def generate_cartas_acep
+		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
+		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
+			users.each do |user|
+				if params[:downloadformat] == "docx"
+					str = render_to_string "layouts/carta_aceptacion", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					# document = Htmltoword::Document.create(str)
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".rtf")
+					# stream.write document
+					stream.write str
+				else
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
+					stream.write create_carta_acep_pdf(user, params[:logos])
 				end
 			end
 		end

@@ -1,4 +1,4 @@
-<% result = PdfHelper::calculate_year(user.student_application_form.academic_year) %>
+<% result = PdfHelper::calcular_year(user.student_application_form.academic_year) %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
 <style type='text/css'>
   @page { margin-left: 2.2cm; margin-right: 2.2cm }
   * { font-family: Arial; }
-  p { color: #000000; font-family: Arial; font-size: 14pt;}
+  p { color: #000000; font-family: Arial; font-size: 12pt;}
   td p { color: #000000 }
   h1 { color: #000000 }
   h2 { color: #000000 }
@@ -40,10 +40,9 @@
   <br/>
   <br/>
   <p>Estimado/a <%= user.first_name %>,</p>
+  <br/><b>Universidad Politécnica de Madrid</b> para cursar asignaturas en el marco del Programa <%= user.student_application_form.programme%> para cursar asignaturas durante el pr&oacute;ximo <%= result%>.</p>
   <br/>
-  <p style='text-align: justify;'>Es para m&iacute; un placer comunicarte que has sido admitido en la <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> de la <i>Universidad Politécnica de Madrid</i> para cursar asignaturas en el marco del Programa <%= user.student_application_form.programme%> para cursar asignaturas durante el pr&oacute;ximo <%= result%>.</p>
-  <br/>
-  <p style='text-align: justify;'>Toda la documentaci&oacute;n actualizada se enviar&aacute; por e-mail una vez aprobada la programaci&oacute;n docente para el pr&oacute;ximo curso acad&eacute; 2019-2020.</p>
+  <p style='text-align: justify;'>Toda la documentaci&oacute;n actualizada se enviar&aacute; por e-mail una vez aprobada la programaci&oacute;n docente para el pr&oacute;ximo curso acad&eacute;mico 2019-2020.</p>
   <br/>
   <br/>
   <br/>

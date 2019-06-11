@@ -379,35 +379,36 @@ module PdfHelper
              # text "<i>International Office</i>" , :align => :right, :size => 11, :inline_format => true
              # text "<i>ETSIT-UPM</i>" , :align => :right, :size => 11, :inline_format => true
              sap = user.student_application_form
-             move_down 20
+             move_down 40
+             text "<b>ACCEPTANCE LETTER</b>" , :inline_format => true, :align => :center, :size => 14
+             move_down 40
              table([
-                ["<u>TO:</u>","<b>#{user.family_name.upcase} #{user.first_name}</b>"], 
-                ["<u>HOME UNIVERSITY:</u>", "<b>#{sap.inst_sending_name}</b>"], 
-                ["<u>PROGRAMME:</u>", "<b>#{sap.programme}</b>"], 
-                ["<u>PERIOD OF STAY:</u>", "<b>#{sap.academic_year}</b>"]],
-                 :width => 525, :cell_style => { :inline_format => true, :size => 14,  :border_width => 0  })
+                ["TO:","<b>#{user.family_name.upcase} #{user.first_name}</b>"],
+                ["HOME UNIVERSITY:", "<b>#{sap.inst_sending_name}</b>"],
+                ["PROGRAMME:", "<b>#{sap.programme}</b>"],
+                ["PERIOD OF STAY:", "<b>#{sap.academic_year}</b>"]],
+                 :width => 525, :cell_style => { :inline_format => true, :size => 12,  :border_width => 0  })
              move_down 40
-             text "<b><u>SUBJECT:</u>  Acceptance Letter</b>" , :inline_format => true, :align => :left, :size => 16
+
+             text PdfHelper::get_time_and_place , :align => :right, :size => 12
              move_down 40
-             text PdfHelper::get_time_and_place , :align => :right, :size => 14
-             move_down 40
-             text "Dear #{user.first_name}," , :align => :left, :size => 14
+             text "Dear #{user.first_name}," , :align => :left, :size => 12
              move_down 20
 
              year = sap.academic_year
              result = PdfHelper::calculate_year(year)
 
 
-             text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during #{result}." , :inline_format => true, :align => :justify, :size => 14
+             text "We are pleased to let you know that you have been admitted to the <b>Escuela Técnica Superior de Ingenieros de Telecomunicación</b> of the <b>Universidad Politécnica de Madrid</b> in the framework of #{sap.programme} Programme to follow courses during #{result}." , :inline_format => true, :align => :justify, :size => 12
              # text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during the fall semester of next academic year 2018-2019, starting in the beginning of September 2018 and finishing at the end of January 2019. " , :inline_format => true, :align => :justify, :size => 14
              move_down 20
-             text "More information regarding your stay in Madrid will be sent closer to your arrival date. In the meantime, please do not hesitate to contact the International Office if you have any questions." , :align => :justify, :size => 14
-             move_down 50
-             text "Yours sincerely," , :align => :left, :size => 14
+             text "More information regarding your stay in Madrid will be sent closer to your arrival date. In the meantime, please do not hesitate to contact the International Office if you have any questions." , :align => :justify, :size => 12
+             move_down 60
+             text "Yours sincerely," , :align => :left, :size => 12
              move_down 100
-             text "Luis Salgado", :align => :left, :size => 14
-             text "Vice-Dean for International Relations and Corporate Partnership", :align => :left, :size => 14
-             text "International Office ETSIT - UPM", :align => :left, :size => 14
+             text "Luis Salgado", :align => :left, :size => 12
+             text "Vice-Dean for International Relations and Corporate Partnership", :align => :left, :size => 12
+             text "International Office ETSIT - UPM", :align => :left, :size => 12
 
         end.render
     end
@@ -444,6 +445,94 @@ module PdfHelper
       rescue
       end
       result
+    end
+
+    def create_carta_acep_pdf(user, logos = true)
+      # binding.pry
+      Prawn::Document.new(:page_size => 'A4', :info=> { :Title => "Carta de aceptaci%oacute;n",
+                                                        :Author => "ETSIT-UPM",
+                                                        :Subject => "Carta de aceptaci%oacute;n",
+                                                        :CreationDate => Time.now }) do
+        font "Helvetica"
+        def header(logos)
+          fill_color "FFFFFF"
+          rectangle [-40, 810], 632, 60
+          fill
+          if logos
+            image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
+            image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
+          end
+          fill_color "4664A2"
+          move_down 56
+          text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 12
+          text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 12
+
+          fill_color "000000"
+        end
+        header(logos)
+
+        sap = user.student_application_form
+        move_down 40
+        text "<b>DOCUMENTO OFICIAL DE ACEPTACIÓN</b>" , :inline_format => true, :align => :center, :size => 14
+        move_down 40
+
+        table([
+                  ["Para:","<b>#{user.family_name.upcase} #{user.first_name}</b>"],
+                  ["Universidad de Origen:", "<b>#{sap.inst_sending_name}</b>"],
+                  ["Programa:", "<b>#{sap.programme}</b>"],
+                  ["Periodo de estancia:", "<b>#{sap.academic_year}</b>"]],
+              :width => 525, :cell_style => { :inline_format => true, :size => 12,  :border_width => 0  })
+
+        move_down 40
+        text PdfHelper::get_time_and_place , :align => :right, :size => 12
+        move_down 40
+        text "Estimado/a #{user.first_name}," , :align => :left, :size => 12
+        move_down 20
+
+        year = sap.academic_year
+        resultado = PdfHelper::calcular_year(year)
+
+
+        text "Es para mi un placer comunicarte que has sido admitido/a en la <b>Escuela Técnica Superior de Ingenieros de Telecomunicación</b> de la <b>Universidad Politécnica de Madrid</b> para cursar asignaturas durante #{resultado}, en el marco del programa #{sap.programme}." , :inline_format => true, :align => :justify, :size => 12
+        # text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during the fall semester of next academic year 2018-2019, starting in the beginning of September 2018 and finishing at the end of January 2019. " , :inline_format => true, :align => :justify, :size => 14
+        move_down 20
+        text "Toda la documentacion se enviará por e-mail una vez aprobada la programación docente para el próximo semestre." , :align => :justify, :size => 12
+        move_down 60
+        text "Atentamente," , :align => :left, :size => 12
+        move_down 100
+        text "Luis Salgado", :align => :left, :size => 12
+        text "Subdirector de Relaciones Internacionales y Empresas", :align => :left, :size => 12
+        text "Oficina Internacional ETSIT - UPM", :align => :left, :size => 12
+
+      end.render
+    end
+    def PdfHelper::calcular_year(year)
+      resultado = year
+      begin
+        matched = year.match(/(\d{4})-(\d{4})\: (\w+)/)
+        beginning = matched[1]
+        finalization = matched[2]
+        period = matched[3].downcase
+        actual_period = period
+        actual_beginning = beginning
+        actual_finalization = finalization
+        if period == "spring"
+          actual_period = "segundo semestre del próximo curso académico"
+          actual_beginning = "enero #{finalization}"
+          actual_finalization = "julio #{finalization}"
+        elsif period == "fall"
+          actual_period = "primer semestre del próximo curso académico"
+          actual_beginning = "septiembre #{beginning}"
+          actual_finalization = "enero #{finalization}"
+        else
+          actual_period = "próximo curso académico"
+          actual_beginning = "septiembre #{beginning}"
+          actual_finalization = "julio #{finalization}"
+        end
+        resultado =  "el #{actual_period} #{beginning}-#{finalization}, que se extiende desde el mes de #{actual_beginning} hasta el final de #{actual_finalization}"
+      rescue
+      end
+      resultado
     end
 
 end
