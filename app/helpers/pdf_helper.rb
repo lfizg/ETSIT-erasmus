@@ -418,6 +418,13 @@ module PdfHelper
       "Madrid, #{now.strftime("%B #{now.day.ordinalize} %Y")}"
     end
 
+    def PdfHelper::get_fecha
+      tiempo = Time.now
+      fecha = Date.new(tiempo.year, tiempo.month, tiempo.day)
+      "Madrid, #{I18n.l(fecha, locale: :es)}"
+    end
+
+
     def PdfHelper::calculate_year(year)
       result = year
       begin
@@ -484,7 +491,7 @@ module PdfHelper
               :width => 525, :cell_style => { :inline_format => true, :size => 12,  :border_width => 0  })
 
         move_down 40
-        text PdfHelper::get_time_and_place , :align => :right, :size => 12
+        text PdfHelper::get_fecha , :align => :right, :size => 12
         move_down 40
         text "Estimado/a #{user.first_name}," , :align => :left, :size => 12
         move_down 20

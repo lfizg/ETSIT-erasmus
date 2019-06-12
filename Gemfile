@@ -18,6 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'devise', '~> 4.4.3'
 gem 'devise_saml_authenticatable'
 gem 'cancancan', '~> 2.2.0'
+gem 'i18n'
 gem 'paperclip', '~> 6.0.0'
 gem 'pry'
 # Use CoffeeScript for .coffee assets and views
