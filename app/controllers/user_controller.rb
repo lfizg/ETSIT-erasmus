@@ -6,7 +6,7 @@ require 'zip'
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :generate_cartas_acep, :generate_carta_acep, :delete]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :generate_cartas_acep, :generate_carta_acep, :generate_acceptance_letter, :delete]
 	include PdfHelper
 
 	### ADMIN
