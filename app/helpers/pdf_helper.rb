@@ -447,13 +447,13 @@ module PdfHelper
       result
     end
 
-    #AQUI ANIADO EL CODIGO PARA GENERAR LA CARTA EN ESPAÑOL
+    #AQUI AÑADO EL CODIGO PARA GENERAR LA CARTA EN ESPAÑOL
 
     def create_ac_letter_spa_pdf(user, logos = true)
 # binding.pry
-      Prawn::Document.new(:page_size => 'A4', :info=> { :Title => "Carta de aceptaci%oacute;n",
+      Prawn::Document.new(:page_size => 'A4', :info=> { :Title => "Carta de aceptación",
                                                         :Author => "ETSIT-UPM",
-                                                        :Subject => "Carta de aceptaci%oacute;n",
+                                                        :Subject => "Carta de aceptación",
                                                         :CreationDate => Time.now }) do
         font "Helvetica"
         def header(logos)
