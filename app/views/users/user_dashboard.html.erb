@@ -97,13 +97,16 @@
 
 					</div>
 				</div>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
-						:name => :learning_agreement,
-						:current_user => current_user,
-						:content => current_user.learning_agreement,
-						:file_name => current_user.learning_agreement_file_name,
-						:label => "Learning Agreement"}  %>
+        <div id="studies">
+        <%if sap.programme = "Research Stay" %>
+          <%= render partial: "users/user_dashboard_panel", :locals => {
+              :admin => false,
+              :name => :learning_agreement,
+              :current_user => current_user,
+              :content => current_user.learning_agreement,
+              :file_name => current_user.learning_agreement_file_name,
+              :label => "Traineeship Agreement"}  %>
+          <%end %>
 				<%= render partial: "users/user_dashboard_panel", :locals => {
 						:admin => false,
 						:name => :curriculum_vitae,
@@ -116,9 +119,7 @@
 						:content => current_user.ni_passport,
 						:file_name => current_user.ni_passport_file_name,
 						:label => "Identity card / Passport"}  %>
-
         <% if sap.programme!='Research Stay' %>
-          <div id="studies">
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :motivation_letter,
@@ -149,6 +150,14 @@
                 :content => current_user.spanish_test_score,
                 :file_name => current_user.spanish_test_score_file_name,
                 :label => "Spanish Language Certificate"}  %>
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :learning_agreement,
+                :current_user => current_user,
+                :content => current_user.learning_agreement,
+                :file_name => current_user.learning_agreement_file_name,
+                :label => "Learning Agreement"}  %>
+
           </div>
         <% end %>
 				<% if current_user.seeking_degree %>
