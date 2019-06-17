@@ -97,9 +97,8 @@
 
 					</div>
 				</div>
-
         <div id="studies">
-          <%if sap.programme = "Research Stay" %>
+          <%if sap.programme == "Research Stay" %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :learning_agreement,
@@ -120,6 +119,20 @@
               :content => current_user.ni_passport,
               :file_name => current_user.ni_passport_file_name,
               :label => "Identity card / Passport"}  %>
+
+          <%= render partial: "users/user_dashboard_panel", :locals => {
+              :admin => false,
+              :name => :curriculum_vitae,
+              :content => current_user.curriculum_vitae,
+              :file_name => current_user.curriculum_vitae_file_name,
+              :label => "Curriculum Vitae"}  %>
+          <%= render partial: "users/user_dashboard_panel", :locals => {
+              :admin => false,
+              :name => :ni_passport,
+              :content => current_user.ni_passport,
+              :file_name => current_user.ni_passport_file_name,
+              :label => "Identity card / Passport"}  %>
+
           <% if sap.programme!='Research Stay' %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
@@ -162,6 +175,7 @@
             </div>
           <% end %>
 
+
 				<% if current_user.seeking_degree %>
 					<div id="degree-seeking">
 						<%= render partial: "users/user_dashboard_panel", :locals => {
@@ -184,6 +198,7 @@
 								:label => "Official GPA"}  %>
 					</div>
 				<% end %>
+
 			</div>
 				<div id="edit-picture-dialog" >
 					<h2 class="title">Edit your picture</h2>
