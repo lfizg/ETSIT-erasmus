@@ -97,7 +97,6 @@
 
 					</div>
 				</div>
-
 				<%= render partial: "users/user_dashboard_panel", :locals => {
 						:admin => false,
 						:name => :learning_agreement,
@@ -107,46 +106,51 @@
 						:label => "Learning Agreement"}  %>
 				<%= render partial: "users/user_dashboard_panel", :locals => {
 						:admin => false,
-						:name => :motivation_letter,
-						:content => current_user.motivation_letter,
-						:file_name => current_user.motivation_letter_file_name,
-						:label => "Motivation Letter" } %>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
 						:name => :curriculum_vitae,
 						:content => current_user.curriculum_vitae,
 						:file_name => current_user.curriculum_vitae_file_name,
 						:label => "Curriculum Vitae"}  %>
 				<%= render partial: "users/user_dashboard_panel", :locals => {
 						:admin => false,
-						:name => :transcript_of_records,
-						:content => current_user.transcript_of_records,
-						:file_name => current_user.transcript_of_records_file_name,
-						:label => "Transcript of Records"}  %>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
-						:name => :valid_insurance_policy,
-						:content => current_user.valid_insurance_policy,
-						:file_name => current_user.valid_insurance_policy_file_name,
-						:label => "Valid Insurance Policy"}  %>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
 						:name => :ni_passport,
 						:content => current_user.ni_passport,
 						:file_name => current_user.ni_passport_file_name,
 						:label => "Identity card / Passport"}  %>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
-						:name => :english_test_score,
-						:content => current_user.english_test_score,
-						:file_name => current_user.english_test_score_file_name,
-						:label => "English Language Certificate"}  %>
-				<%= render partial: "users/user_dashboard_panel", :locals => {
-						:admin => false,
-						:name => :spanish_test_score,
-						:content => current_user.spanish_test_score,
-						:file_name => current_user.spanish_test_score_file_name,
-						:label => "Spanish Language Certificate"}  %>
+
+        <% if sap.programme!='Research Stay' %>
+          <div id="studies">
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :motivation_letter,
+                :content => current_user.motivation_letter,
+                :file_name => current_user.motivation_letter_file_name,
+                :label => "Motivation Letter" } %>
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :transcript_of_records,
+                :content => current_user.transcript_of_records,
+                :file_name => current_user.transcript_of_records_file_name,
+                :label => "Transcript of Records"}  %>
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :valid_insurance_policy,
+                :content => current_user.valid_insurance_policy,
+                :file_name => current_user.valid_insurance_policy_file_name,
+                :label => "Valid Insurance Policy"}  %>
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :english_test_score,
+                :content => current_user.english_test_score,
+                :file_name => current_user.english_test_score_file_name,
+                :label => "English Language Certificate"}  %>
+            <%= render partial: "users/user_dashboard_panel", :locals => {
+                :admin => false,
+                :name => :spanish_test_score,
+                :content => current_user.spanish_test_score,
+                :file_name => current_user.spanish_test_score_file_name,
+                :label => "Spanish Language Certificate"}  %>
+          </div>
+        <% end %>
 				<% if current_user.seeking_degree %>
 					<div id="degree-seeking">
 						<%= render partial: "users/user_dashboard_panel", :locals => {
