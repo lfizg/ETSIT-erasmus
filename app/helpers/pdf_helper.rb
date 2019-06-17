@@ -510,8 +510,10 @@ module PdfHelper
     end
 
     def PdfHelper::get_time_and_place_spa
-      now = Time.now
-      "Madrid, #{now.strftime("%B #{now.day.ordinalize} %Y")}"
+      tiempo = Time.now
+      fecha = Date.new(tiempo.year, tiempo.month, tiempo.day)
+      "Madrid, #{I18n.l(fecha, locale: :es)}"
+
     end
 
     def PdfHelper::calculate_year_spa(year)

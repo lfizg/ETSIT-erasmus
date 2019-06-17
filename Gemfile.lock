@@ -303,6 +303,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise (~> 4.4.3)
   devise_saml_authenticatable
+  i18n
   jbuilder (~> 2.5)
   ledermann-rails-settings
   listen (>= 3.0.5, < 3.2)
