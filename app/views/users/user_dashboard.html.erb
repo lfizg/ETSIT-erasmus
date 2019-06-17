@@ -97,9 +97,8 @@
 
 					</div>
 				</div>
-
         <div id="studies">
-          <%if sap.programme = "Research Stay" %>
+          <%if sap.programme == "Research Stay" %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :learning_agreement,
@@ -120,6 +119,7 @@
               :content => current_user.ni_passport,
               :file_name => current_user.ni_passport_file_name,
               :label => "Identity card / Passport"}  %>
+
           <% if sap.programme!='Research Stay' %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
