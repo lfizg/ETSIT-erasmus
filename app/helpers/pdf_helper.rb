@@ -496,7 +496,7 @@ module PdfHelper
         text "Es para mi un placer comunicarte que has sido admitido en la <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> de la <i>Universidad Politécnica de Madrid</i> para cursar asignaturas durante el próximo #{result}, en el marco del #{sap.programme} ." , :inline_format => true, :align => :justify, :size => 14
         # text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during the fall semester of next academic year 2018-2019, starting in the beginning of September 2018 and finishing at the end of January 2019. " , :inline_format => true, :align => :justify, :size => 14
         move_down 20
-        text "Toda la documentaci&oacute;n actualizada se enviar&aacute; por e-mail una vez aprobada la programaci&oacute;n docente para el pr&oacute;ximo curso acad&eacute;mico 2019-2020." , :align => :justify, :size => 14
+        text "Toda la documentación actualizada se enviará; por e-mail una vez aprobada la programación docente para el próximo curso académico 2019-2020." , :align => :justify, :size => 14
         move_down 50
         text "Atentamente," , :align => :left, :size => 14
         move_down 100
@@ -523,15 +523,15 @@ module PdfHelper
         actual_beginning = beginning
         actual_finalization = finalization
         if period == "spring"
-          actual_period = "segundo semestre del pr&oacute;ximo curso acad&eacute;mico"
+          actual_period = "segundo semestre del próximo curso académico"
           actual_beginning = "enero #{finalization}"
           actual_finalization = "julio #{finalization}"
         elsif period == "fall"
-          actual_period = "primer semestre del pr&oacute;ximo curso acad&eacute;mico"
+          actual_period = "primer semestre del próximo curso académico"
           actual_beginning = "septiembre #{beginning}"
           actual_finalization = "enero #{finalization}"
         else
-          actual_period = "pr&oacute;ximo curso acad&eacute;mico"
+          actual_period = "próximo curso académico"
           actual_beginning = "septiembre #{beginning}"
           actual_finalization = "julio #{finalization}"
         end
