@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get "token_registration", to: "user#token_registration"
     post "token_registration", to: "user#create_user"
     get 'user_dashboard', to: "user#user_dashboard"
+    get 'during_user_dashboard', to: "user#during_user_dashboard"
     get 'review_dashboard/:user', to: "user#review_dashboard"
     get 'admin_dashboard', to: "user#admin_dashboard"
     get 'massive_email', to: "user#massive_email"
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
     post 'create_nominee_multiple', to: "nominated_user#create_nominee_multiple"
     post 'resend_email', to: "nominated_user#resend_email"
     delete 'delete_nominee', to: "nominated_user#delete_nominee"
+
 
     get 'register/:token_registration', to: "nominated_user#register"
     get 'register/:token_registration/register_with_eidas', to: "user#register_with_eidas"

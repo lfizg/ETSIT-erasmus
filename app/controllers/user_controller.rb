@@ -38,6 +38,10 @@ class UserController < ApplicationController
 		render "users/review_dashboard"
 	end
 
+	def during_user_dashboard
+		render "users/during_user_dashboard"
+	end
+
 	def register_with_email_and_password
 		@nominated_user = NominatedUser.find_by :registration_token => params[:token_registration]
 		unless @nominated_user.blank?
