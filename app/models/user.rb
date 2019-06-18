@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum ni_type: [:id, :passport]
   attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
 
-  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce]
+  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce, :during_mobility]
   before_create :set_default_role
   before_create :set_default_progress_status
 
