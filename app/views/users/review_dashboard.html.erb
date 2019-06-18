@@ -90,7 +90,7 @@
 
 				</div>
 			</div>
-      <%if sap.programme == "Research Stay" %>
+      <%if sap.programme == "Research Stay / Traineeship" %>
         <%= render partial: "users/user_dashboard_panel", :locals => {
             :admin => true,
             :name => :learning_agreement,
@@ -119,8 +119,14 @@
           :content => current_user.ni_passport,
           :file_name => current_user.ni_passport_file_name,
           :label => "Identity card / Passport"}  %>
+      <%= render partial: "users/user_dashboard_panel", :locals => {
+          :admin => true,
+          :name => :valid_insurance_policy,
+          :content => current_user.valid_insurance_policy,
+          :file_name => current_user.valid_insurance_policy_file_name,
+          :label => "Valid Insurance Policy"}  %>
 
-      <%if sap.programme != "Research Stay" %>
+      <%if sap.programme != "Research Stay / Traineeship" %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
 					:admin => true,
 					:name => :motivation_letter,
@@ -134,12 +140,6 @@
 					:file_name => current_user.transcript_of_records_file_name,
 					:label => "Transcript of Records"}  %>
 
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :valid_insurance_policy,
-					:content => current_user.valid_insurance_policy,
-					:file_name => current_user.valid_insurance_policy_file_name,
-					:label => "Valid Insurance Policy"}  %>
 
 			<%= render partial: "users/user_dashboard_panel", :locals => {
 					:admin => true,

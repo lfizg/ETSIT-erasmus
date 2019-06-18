@@ -98,7 +98,7 @@
 					</div>
 				</div>
         <div id="studies">
-          <%if sap.programme == "Research Stay" %>
+          <%if sap.programme == "Research Stay / Traineeship" %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :learning_agreement,
@@ -127,9 +127,15 @@
               :content => current_user.ni_passport,
               :file_name => current_user.ni_passport_file_name,
               :label => "Identity card / Passport"}  %>
+          <%= render partial: "users/user_dashboard_panel", :locals => {
+              :admin => false,
+              :name => :valid_insurance_policy,
+              :content => current_user.valid_insurance_policy,
+              :file_name => current_user.valid_insurance_policy_file_name,
+              :label => "Valid Insurance Policy"}  %>
 
 
-          <% if sap.programme!='Research Stay' %>
+          <% if sap.programme!='Research Stay / Traineeship' %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :motivation_letter,
@@ -142,12 +148,6 @@
                 :content => current_user.transcript_of_records,
                 :file_name => current_user.transcript_of_records_file_name,
                 :label => "Transcript of Records"}  %>
-            <%= render partial: "users/user_dashboard_panel", :locals => {
-                :admin => false,
-                :name => :valid_insurance_policy,
-                :content => current_user.valid_insurance_policy,
-                :file_name => current_user.valid_insurance_policy_file_name,
-                :label => "Valid Insurance Policy"}  %>
             <%= render partial: "users/user_dashboard_panel", :locals => {
                 :admin => false,
                 :name => :english_test_score,
@@ -218,10 +218,11 @@
 		<h1> Intenational office has been notified and they will contact back soon. </h1>
 	<% elsif current_user.progress_status == "accepted" %>
 		<h1> Your request was successfully completed and accepted. </h1>
-		<a href="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}.pdf"%>" download>
-			<button id="acceptance_letter_button" class="custom-button primary">Download acceptance letter</button>
-		</a>
-		<iframe id="acceptance_letter" src="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}"%>"/>
+    <button id="acceptance-letter-dialog-button" class="custom-button primary" style="alignment: center">Get Acceptance Letter</button>
+    <a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter_spa/#{current_user.id}" %>">
+	</a>
+    <button id="acceptance-letter-dialog-sp-button" class="custom-button primary" style="alignment: center">Descargar carta aceptacion</button>
+
 	<% elsif current_user.progress_status == "rejected" %>
 		<h1> Your request has been rejected </h1>
 	<%else%>
