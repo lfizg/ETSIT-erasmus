@@ -62,7 +62,6 @@
 							<%end%>
 						</div>
 					</div>
-
 					<div class="collapsible big show">
 						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed.
 						</p>
@@ -213,22 +212,35 @@
 				</div>
 
 
-
 	<% elsif current_user.progress_status == "finished" %>
 		<h1> Intenational office has been notified and they will contact back soon. </h1>
+
+
 	<% elsif current_user.progress_status == "accepted" %>
+    <br>
 		<h1> Your request was successfully completed and accepted. </h1>
-    <button id="acceptance-letter-dialog-button" class="custom-button primary" style="alignment: center">Get Acceptance Letter</button>
-    <a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter_spa/#{current_user.id}" %>">
-	</a>
-    <button id="acceptance-letter-dialog-sp-button" class="custom-button primary" style="alignment: center">Descargar carta aceptacion</button>
+    <br>
+    <form method="get" action="<%="#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
+      <button type="submit" class="custom-button primary" style="alignment: center">Get Acceptance Letter (English version) </button>
+      <br>
+    </form>
+
+    <form method="get" action="<%="#{RELATIVE_URL}/generate_acceptance_letter_spa/#{current_user.id}" %>">
+        <button type="submit" class="custom-button primary">Descargar carta de aceptación (Versión española)</button>
+      <br>
+    </form>
+
 
 	<% elsif current_user.progress_status == "rejected" %>
 		<h1> Your request has been rejected </h1>
+
 	<%else%>
 		<h1></h1>
+
 	<%end%>
-	</div>
+  </div>
+
+
 	<p class="intro-paragraph  footer-paragraph s12">
 	<% if current_user.role == "user" && current_user.progress_status == "in_process" && current_user.percentage_num.to_i == 100 %>
 		<%= button_to "Finish Application", user_finish_application_form_path, data: {confirm: "This action will submit your application form and send an email to notify International Office, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app" %>
