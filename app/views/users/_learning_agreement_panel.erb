@@ -20,7 +20,7 @@
       <% if !current_user.learning_agreement_subjects.blank? %>
         <% current_user.learning_agreement_subjects.each do |subject|%>
           <% total += subject.ects %>
-          <div class="la-row la-form-row" lang="en-US">
+          <div class="la-row la-form-row la-subject-existing" lang="en-US">
             <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
               <option value="" disabled required ></option>
               <option value="GITST" <%= subject.degree == "GITST" ? "selected" : "" %>>GITST</option>
@@ -46,7 +46,7 @@
         <%end %>
       <%end %>
       <%unless admin %>
-        <div class="la-row la-form-row" lang="en-US">
+        <div class="la-row la-form-row" lang="en-US" id="la-subject-new">
           <select class="la-degree" name="user[learning_agreement_subjects][][degree]">
             <option value="" disabled selected required></option>
             <option value="GITST">GITST</option>
@@ -69,25 +69,20 @@
         </div>
       <%end %>
     </div>
-
     <div class="la-total ">
-      <%unless admin %>
+      <% unless admin %>
         <button class="custom-button primary" id="add-la-subject" type="button"><i class="mdi mdi-plus"></i></button>
         <%= form.submit "Save", :class => "custom-button primary" %>
         <label id="la-server-msg"></label>
-      <%end %>
+      <% end %>
       <% if admin and current_user.learning_agreement_subjects.length == 0 %>
         <center class="intro-paragraph"><em>No subjects selected</em></center>
-      <%else %>
+      <% else %>
         <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total.round(2) %></span></b> &nbsp;ECTS</span>
       <% end %>
     </div>
-
     <br/>
-
-  <% end %>
-
-  <div id="info-degrees-dialog" >
+    <div id="info-degrees-dialog" >
     <h2 class="title">What to study at ETSIT</h2>
     <button class="transparent-button action-button right close" id="info-degrees-dialog-close"><i class="mdi mdi-close"></i></button>
     <ul>
@@ -106,10 +101,10 @@
     <br/>
     <p class="more-info">More degrees available at <b><a target="_blank" href="http://upm.es">upm.es</a></b>.</p>
   </div>
-  <%end %>
-<%if sap.programme == "RResearch Stay / Traineeship"%>
-  <p class="intro-paragraph alert">
-    Please upload the Traineeship/Research Stay Agreement signed by your Institutional Coordinator.
-  </p>
 
-<%end %>
+  <% else %>
+    <p class="intro-paragraph alert">
+      Please upload the Traineeship/Research Stay Agreement signed by your Institutional Coordinator.
+    </p>
+  <%end %>
+<% end %>
