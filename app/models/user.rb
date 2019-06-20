@@ -83,16 +83,21 @@ class User < ApplicationRecord
 
   def percentage_num
    attachment_values =  [
-     :motivation_letter_file_name,
      :curriculum_vitae_file_name,
-     :transcript_of_records_file_name,
      :learning_agreement_file_name,
      # :valid_insurance_policy_file_name,
      :photo_file_name,
      :ni_passport_file_name,
    ]
 
-   if (self.seeking_degree) 
+   if !self.student_application_form.programme
+     attachment_values.push(*[
+      :motivation_letter_file_name,
+      :transcript_of_records_file_name
+     ])
+
+   end
+   if self.seeking_degree
      attachment_values.push(*[
       :recommendation_letter_1_file_name,
       :recommendation_letter_2_file_name,
