@@ -74,7 +74,8 @@ class UserController < ApplicationController
 				 :nationality,
 				 :sex,
 				 :permanent_adress,
-				 :phone_number
+				 :phone_number,
+				 :signed_acceptance_letter
 			))
 		
 		current_user.student_application_form.step = 1

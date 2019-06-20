@@ -33,7 +33,7 @@ class User < ApplicationRecord
   has_attached_file :official_gpa, :url=> "/erasmus/attachment/og/:id/:basename.:extension"
   has_attached_file :english_test_score, :url=> "/erasmus/attachment/ets/:id/:basename.:extension"
   has_attached_file :spanish_test_score, :url=> "/erasmus/attachment/sts/:id/:basename.:extension"
-
+  has_attached_file :signed_acceptance_letter, :url=> "/erasmus/attachment/sal/:id/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
@@ -52,6 +52,8 @@ class User < ApplicationRecord
   validates_attachment_content_type :official_gpa, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :english_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :spanish_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :signed_acceptance_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+
 
   validates_attachment_size :signed_student_application_form, :less_than => 4.megabytes
   validates_attachment_size :motivation_letter, :less_than => 4.megabytes
@@ -66,6 +68,8 @@ class User < ApplicationRecord
   validates_attachment_size :official_gpa, :less_than => 4.megabytes
   validates_attachment_size :english_test_score, :less_than => 4.megabytes
   validates_attachment_size :spanish_test_score, :less_than => 4.megabytes
+  validates_attachment_size :signed_acceptance_letter, :less_than => 4.megabytes
+
 
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?

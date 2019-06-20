@@ -261,3 +261,8 @@
     </p>
 	</form>
 </div>
+
+<%form_for @user do |f| %>
+  <%f.label :signed_acceptance_letter %>
+  <%f.file_field :signed_acceptance_letter %>
+<% end %>
