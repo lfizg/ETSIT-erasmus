@@ -1,7 +1,11 @@
 <% sap = current_user.student_application_form %>
 <% settings = ProjectSettings.first_or_create! %>
 <% unless current_user.role != 'admin'%>
+  <%if current_user.progress_status ="accepted" %>
+    <p>File uploaded</p>
+
 	<br/><br/>
+    <% end %>
 	<p class="no-results">You do not have permission to access this page</p>
 <% else %>
   <div id="studies">

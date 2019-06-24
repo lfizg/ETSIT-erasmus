@@ -259,6 +259,13 @@
       <br>
     </form>
 
+    <%= render partial: "users/signed_acceptance_letter_panel", :locals => {
+        :admin => false,
+        :name => :signed_acceptance_letter,
+        :content => current_user.signed_acceptance_letter,
+        :file_name => current_user.signed_acceptance_letter_file_name,
+        :label => "Signed Acceptance Letter"}  %>
+
 
   <% elsif current_user.progress_status == "rejected" %>
     <h1> Your request has been rejected </h1>
