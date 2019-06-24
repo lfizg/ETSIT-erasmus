@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_201423) do
     t.string "deadline_first_semeter", default: "June, 1st"
     t.string "deadline_second_semester", default: "December, 1st"
     t.string "deadline_double_degree", default: "May, 15th"
-    t.string "mobility_programmes", default: "[\"Erasmus+ Studies\", \"Erasmus+ Placement\", \"Magalhães\", \"Bilateral Agreement\", \"Visiting Student\", \"SICUE/SENECA\", \"Research Stay\", \"Other\"]"
+    t.string "mobility_programmes", default: "[\"Erasmus+ Studies\", \"Erasmus+ Placement\", \"Magalhães\", \"Bilateral Agreement\", \"Visiting Student\", \"SICUE/SENECA\", \"Other\"]"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -164,6 +164,10 @@ ActiveRecord::Schema.define(version: 2018_12_05_201423) do
     t.datetime "spanish_test_score_updated_at"
     t.string "person_identifier", default: ""
     t.boolean "archived", default: false
+    t.string "signed_acceptance_letter_file_name"
+    t.string "signed_acceptance_letter_content_type"
+    t.integer "signed_acceptance_letter_file_size"
+    t.datetime "signed_acceptance_letter_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

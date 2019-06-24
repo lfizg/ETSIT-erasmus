@@ -46,6 +46,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.attachment :recommendation_letter_2
       t.attachment :official_gpa
       t.attachment :english_test_score
+      t.attachment :signed_acceptance_letter
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

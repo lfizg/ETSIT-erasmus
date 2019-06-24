@@ -18,6 +18,12 @@ class User < ApplicationRecord
 
   has_one :student_application_form
   has_many :learning_agreement_subjects
+  has_one_attached :signed_acceptance_letter
+
+  has_attached_file :signed_acceptance_letter, :url=> "/erasmus/attachment/sal/:id/:basename.:extension"
+  validates_attachment_content_type :signed_acceptance_letter, :content_type => ["application/pdf", "application/doc", "application/docx"]
+  validates_attachment_size :signed_acceptance_letter, :less_than => 4.megabytes
+
 
   accepts_nested_attributes_for :student_application_form
   has_attached_file :signed_student_application_form, :url=> "/erasmus/attachment/ssaf/:id/:basename.:extension"

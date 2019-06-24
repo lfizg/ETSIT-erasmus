@@ -148,6 +148,14 @@
           :content => current_user.spanish_test_score,
           :file_name => current_user.spanish_test_score_file_name,
           :label => "Spanish Language Certificate"}  %>
+      <%if current_user.progress_status == "accepted"  %>
+        <%= render partial: "users/user_dashboard_panel", :locals => {
+            :admin => false,
+            :name => :signed_acceptance_letter,
+            :content => current_user.signed_acceptance_letter,
+            :file_name => current_user.signed_student_application_form_file_name,
+            :label => "Signed Acceptance Letter"}  %>
+      <%end %>
     <%end %>
     <%if current_user.seeking_degree %>
       <div id="degree-seeking" class="<%= current_user.seeking_degree ? "" : "hidden" %>">
@@ -256,3 +264,15 @@
     </p>
   </form>
 </div>
+
+  <input class="input-file" type="file" name="photo2" accept="file"></input>
+  <%= form_for current_user, url: RELATIVE_URL + "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
+    <br></br>
+    <div class="messages-from-server">
+
+    </div>
+    <div class="align-right">
+      <%= form.submit "Upload", :class => "custom-button" %>
+      <img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
+    </div>
+<%end %>
