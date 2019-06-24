@@ -7,20 +7,10 @@
   <div id="studies">
     <%unless current_user.progress_status == "during_mobility" %>
       <%= render partial: "users/before_user_dashboard", :locals => {
-          :admin => false,
-          :name => :learning_agreement,
-          :current_user => current_user,
-          :content => current_user.learning_agreement,
-          :file_name => current_user.learning_agreement_file_name,
-          :label => "Traineeship Agreement"}  %>
+          :current_user => current_user}  %>
     <%else %>
       <%= render partial: "users/during_user_dashboard", :locals => {
-          :admin => false,
-          :name => :learning_agreement,
-          :current_user => current_user,
-          :content => current_user.learning_agreement,
-          :file_name => current_user.learning_agreement_file_name,
-          :label => "Learning Agreement"}  %>
+          :current_user => current_user}  %>
 
     <%end %>
   </div>

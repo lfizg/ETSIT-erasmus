@@ -1,0 +1,54 @@
+<% unless User.exists?(id: params[:user], role: "user")  %>
+  <div class="align-right">
+    <%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
+    <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
+  </div>
+  <br/><br/>
+  <p class="no-results">The selected user does not exist</p>
+<%else%>
+  <% admin = current_user %>
+  <% current_user = User.find(params[:user]) %>
+<%end %>
+
+<% settings = ProjectSettings.first_or_create! %>
+<% sap = current_user.student_application_form %>
+
+<p class="intro-paragraph"><span class="red">(*) Required file or data</span> </p>
+<br/>
+<div class="dashboard-container">
+  <div class="left-column">
+    <button class="edit-picture "><i class="mdi mdi-camera"></i></button>
+    <img id="actual-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>" alt="User image"/>
+    <p><%= current_user.first_name %> <%= current_user.family_name %></p>
+    <span class="red">required photo</span>
+  </div>
+  <div class="right-column">
+
+    <%if sap.programme == "Research Stay / Traineeship" %>
+      <%= render partial: "users/user_dashboard_panel", :locals => {
+          :admin => true,
+          :name => :learning_agreement,
+          :current_user => current_user,
+          :content => current_user.learning_agreement,
+          :file_name => current_user.learning_agreement_file_name,
+          :label => "Traineeship Agreement"}  %>
+    <%else %>
+      <%= render partial: "users/user_dashboard_panel", :locals => {
+          :admin => true,
+          :name => :learning_agreement,
+          :current_user => current_user,
+          :content => current_user.learning_agreement,
+          :file_name => current_user.learning_agreement_file_name,
+          :label => "Initial Learning Agreement"}  %>
+    <%end %>
+
+
+  </div>
+
+</div>
+
+<p class="intro-paragraph  footer-paragraph s12">
+  <% if current_user.role == "user" && current_user.progress_status == "during_mobility" %>
+    <%= button_to "Accept changes in LA", user_finish_application_form_path, data: {confirm: "This action will send an email to notify the student the changes in the LA are accepted, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app" %>
+  <% end %>
+</p>
